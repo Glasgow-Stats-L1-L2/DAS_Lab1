@@ -1,0 +1,50 @@
+# Further Tasks {-}
+
+The tasks below should be answered by creating your own .R script file.  
+
+The first step is to load into R all of the libraries you will need. This can be done by typing/copying and running the following code in your R script:
+
+```{r libraries0, echo = TRUE, eval = TRUE, warning = FALSE}
+library(ggplot2)
+library(nycflights13)
+```
+
+
+1. From the `flights` data set, subset the data for the airline carrier `JetBlue Airways` and produce a scatterplot of their departure delays against arrival delays using `ggplot`. Interpret the scatterplot.
+
+`r hide("Hint")`
+First subset the `flights` data for the `carrier` B6 using the same approach we used when creating the `Alaska` data set.
+`r unhide()`
+
+2. Produce a histogram of the hourly temperature from Newark Liberty International (EWR) Airport in 2013 using `ggplot`. How does the temperature distribution compare with that from all airports in New York City in 2013? 
+
+`r hide("Hint")`
+Subset the `weather` data set so you are only looking at the hourly temperature levels for EWR airport.
+`r unhide()`
+
+3. For John F.\ Kennedy Airport, produce boxplots (using a single `ggplot` command) of the hourly temperature for the months May, June, July, August and September. How does the hourly temperature change during this period?
+
+`r hide("Hint")`
+You can subset data across multiple variables using the `&` (AND) and `%in%` (IN) operators. For example, `flights[flights$carrier == "US" & flights$origin %in% c("LGA", "EWR"), ]`.
+`r unhide()`
+
+4. Take a look at the `mtcars` data set within the `datasets` library relating to data extracted from the 1974 *Motor Trend* US magazine. Using `ggplot`, produce a faceted barplot of the categorical variables relating to the number of cylinders (`cyl`) and the automobiles transmission (`am`). Interpret the barplot.
+
+`r hide("Hint")`
+Start by creating a table from `cyl` and `am`. Remember that `ggplot` requires data passed to it to be a data frame (see `as.data.frame`).
+`r unhide()`
+
+5. Produce a linegraph of the hourly temperature at LAGuardia (LGA) Airport for the month of October 2013. Interpret the linegraph.
+
+`r hide("Hint")`
+Subset the `weather` data set for LGA airport and the month October. See the hint for Task 3. -->
+`r unhide()`
+
+<br>
+<br>
+
+
+
+
+
+

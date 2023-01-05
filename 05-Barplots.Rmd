@@ -1,0 +1,142 @@
+# Barplots {-}
+
+Barplots, or barcharts, are used to visualise the distributions of categorical variables. This essentially provides us with the frequencies of categories within a categorical variable. Let's take a look at the distribution of airline carriers within the `flights` data that flew out of New York City in 2013. We can do this by creating a table containing the number of flights from each airline carrier as follows:
+
+```{r barplots, echo = TRUE, eval = TRUE, warning = FALSE}
+carrier.freq <- table(flights$carrier)
+carrier.freq <- as.data.frame(carrier.freq)
+colnames(carrier.freq) <- c("carrier", "number")
+```
+
+Note, `ggplot` expects the data passed to it to be a data frame, which is why the above table is converted into a data frame. The names of the columns in our data frames have also been updated using the `colnames` function.
+
+<br>
+
+**Task**: Take a look at the `carrier.freq` data set within the R console.
+
+`r hide("Hint")`
+**Hint:** You can view an object in R by simply typing its name into the R console window.
+`r unhide()`
+
+```{r Task6-solution, webex.hide="Solution", echo=TRUE, eval=TRUE, warning=FALSE}
+carrier.freq
+```
+
+<br>
+
+To create barplots using `ggplot` we use the `geom_col` function:
+
+```{r barplots9, echo = TRUE, eval = FALSE, warning = FALSE}
+ggplot(data = carrier.freq, mapping = aes(x = carrier, y = number)) +
+  geom_col()
+```
+
+```{r barplots10, echo = FALSE, eval = TRUE, out.width = '90%', fig.align = "center", warning = FALSE, fig.cap = "Figure 14: Carriers who flew out of New York City in 2013."}
+ggplot(data = carrier.freq, mapping = aes(x = carrier, y = number)) +
+  geom_col() +
+  labs(x = "Carrier", y = "Count",
+        title = "Carriers who flew out of New York City in 2013") 
+```
+
+<br>
+
+**Task**: Add to the code above to produce Figure 14.
+
+`r hide("Hint")`
+You need to include the additional `labs` layer to `ggplot` using the `x`, `y` and `title` arguments.
+`r unhide()`
+
+```{r Task7-solution, webex.hide="Solution", echo=TRUE, eval=TRUE, warning=FALSE}
+ggplot(data = carrier.freq, mapping = aes(x = carrier, y = number)) +
+  geom_col() +
+  labs(x = "Carrier", y = "Count",
+        title = "Carriers who flew out of New York City in 2013") 
+```
+
+<br>
+
+Note, the names of the airlines relating to the carrier codes can be found by typing `airlines` into the R console.
+
+```{r MCQ8}
+opts_Q8 <- sample(c("Endeavor Air Inc.",
+                    answer = "United Air Lines Inc.",
+                    "Enovy Air",
+                    "US Airways Inc.",
+                    "Virgin America",
+                    "Other"))
+```
+
+<br>
+
+**What is the name of the airline which had the most flights out of New York City in 2013?**
+`r longmcq(opts_Q8)`
+
+<br>
+
+Barplots can also be used to compare two categorical variables. For instance, let's say we wanted to look at the number of flights that flew out of New York City in 2013 from each carrier and from each airport (LGA, JFK and EWR). To obtain a table of this information we simply add the flights origin to our previous table as follows:
+
+```{r barplots4, echo = TRUE, eval = TRUE, warning = FALSE}
+carrier.origin <- table(flights$origin, flights$carrier)
+carrier.origin <- as.data.frame(carrier.origin)
+colnames(carrier.origin) <- c("origin", "carrier", "number")
+```
+
+The barplot for comparing two categorical variables is very similar in this case, where we simply pass the additional `fill` argument to the `aes` function. Including the `fill` argument lets `ggplot` plot know that we want to split the barplot according to an additional categorical variable, which is `origin` in this case. The barplot is then given by:
+
+```{r barplots11, echo = TRUE, eval = TRUE, out.width = '90%', fig.align = "center", warning = FALSE, fig.cap = "Figure 15: Stacked barplot of carriers who flew out of New York City in 2013."}
+ggplot(data = carrier.origin, mapping = aes(x = carrier, y = number, fill = origin)) +
+  geom_col() +
+  labs(x = "Carrier", y = "Count",
+        title = "Carriers who flew out of New York City in 2013") 
+```
+
+This is what is referred to as a **stacked barplot** since the bars for each `origin` are simply stacked on top of one another for each of the carriers.  You can control the colours in the stacked bar plots with two categorial variables by adding an additional layer `+ scale_fill_manual(values = c(...))`. 
+
+
+```{r MCQ9}
+opts_Q9 <- sample(c(answer = "John F. Kennedy Airport (JFK)",
+                    "LAGuardia Airport (LGA)",
+                    "Newark Liberty International Airport (EWR)"))
+```
+
+<br>
+
+**Which origin did JetBlue Airways appear to favour in 2013?**
+`r longmcq(opts_Q9)`
+
+<br>
+
+This provides us with a visually nice barplot to present our carrier information by airport of origin. However, there are also alternative barplots to the stacked barplot. One alternative to a stacked barplot is the **side-by-side** (or **dodged**) **barplot**, which, as suggested by its name, places the bars next to each other instead of on top of one another. This can be produced as follows:
+
+```{r barplots12, echo = TRUE, eval = TRUE, out.width = '90%', fig.align = "center", warning = FALSE, fig.cap = "Figure 16: Dodged barplot of carriers who flew out of New York City in 2013."}
+ggplot(data = carrier.origin, mapping = aes(x = carrier, y = number, fill = origin)) +
+  geom_col(position = "dodge") +
+  labs(x = "Carrier", y = "Count",
+        title = "Carriers who flew out of New York City in 2013") 
+```
+
+This is done by passing to the `geom_col` function the `position` of the barplots, which in this case is `dodge`. Before moving on, consider the following two questions:
+
+  * What could be considered a positive of using a side-by-side barplot as opposed to a stacked barplot?
+  * What could be a disadvantage of using a side-by-side barplot?
+
+Lastly, let's take a look at what is referred to as a **faceted barplot**. They provide an easier way to compare the carrier distributions by origin, and can be obtained as follows:
+
+```{r barplots13, echo = TRUE, eval = TRUE, out.width = '90%', fig.align = "center", warning = FALSE, fig.cap = "Figure 17: Faceted barplot of carriers who flew out of New York City in 2013."}
+ggplot(data = carrier.origin, mapping = aes(x = carrier, y = number, fill = origin)) +
+  geom_col() +
+  facet_wrap(~ origin, ncol = 1) +
+  labs(x = "Carrier", y = "Count",
+        title = "Carriers who flew out of New York City in 2013") 
+```
+
+Here we include the `facet_wrap` function, where we want separate barplots by `origin`, and hence we use `~ origin`. We also choose to have them plotted in one column via `ncol = 1`. This makes it easier to compare their distributions now that they are not stacked on top or beside one another.
+
+Before moving on to the next section, consider the following questions:
+
+  * What is the difference between histograms and barplots?
+  * Why can't we use histograms to visualise categorical variables?
+
+<br>
+<br>
+

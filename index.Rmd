@@ -1,0 +1,60 @@
+--- 
+title: "Data Analysis: Visualising data using ggplot2 in R"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+biblio-style: apalike
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(nycflights13)
+library(webexercises)
+Alaska <- flights[flights$carrier == "AS", ]
+jitter.example <- matrix(0, nrow = 10, ncol = 2)
+jitter.example <- as.data.frame(jitter.example)
+carrier.freq <- table(flights$carrier)
+carrier.freq <- as.data.frame(carrier.freq)
+colnames(carrier.freq) <- c("carrier", "number")
+carrier.origin <- table(flights$origin, flights$carrier)
+carrier.origin <- as.data.frame(carrier.origin)
+colnames(carrier.origin) <- c("origin", "carrier", "number")
+Newark.Jan <- weather[weather$origin == "EWR" & weather$month == 1, ]
+knitr::opts_chunk$set(echo = FALSE) #, comment = NA)
+```
+
+
+# Getting Started {-}
+
+This week we will demonstrate various techniques for visualising data in R using `ggplot2`. This will also include the correct interpretation and understanding of the different plotting techniques.
+
+**Note on resources**: A lot of the content within this course is based on the open-source book [Statistical Inference via Data Science: A ModernDive into R and the tidyverse](https://moderndive.com/index.html) and thus is a useful source for additional examples and questions.
+
+In addition, the following websites are particularly useful for data visualization:
+
+* [From Data to Viz](https://www.data-to-viz.com/) leads you to the most appropriate graph for your data
+* [R graph gallery](https://www.r-graph-gallery.com/) lists hundreds of charts in several sections, always with their reproducible code available.
+* [This blog post](https://simplystatistics.org/2019/08/28/you-can-replicate-almost-any-plot-with-ggplot2/) shows that you can replicate almost any plot with R.
+
+***
+
+It is advisable to record the code you create throughout this tutorial as a handy summary in an `.R` script file. You will be required to create and write your own script file in the "Further Tasks" section at the end of the session, but the given R code will help you engage with the material directly as you work through the following sections. Start by loading into R all of the libraries we will need for this session. This can be done by typing/copying the following code into your R script and "running" the code: 
+
+```{r libraries, echo = TRUE, eval = FALSE, warning = FALSE}
+install.packages("ggplot2") #Only include if the package hasn't already been installed
+library(ggplot2)
+install.packages("nycflights13") #Only include if the package hasn't already been installed
+library(nycflights13)
+```
+
+The first library `ggplot2` allows us to use functions within that package in order to create effective data visualisations. This library is part of the [`tidyverse`](https://www.tidyverse.org/) collection of R packages, a powerful collection of data tools for transforming and visualizing data, which we will use throughout this course.  Many of the libraries within the `tidyverse` package have concise summaries of the key functions and arguments known at "cheat sheets".  These can be accessed via the [Data Analysis Moodle page](https://moodle.gla.ac.uk/course/view.php?id=15542#section-2) or from RStudio [directly](https://www.rstudio.com/resources/cheatsheets/). You are encouraged to familiarise yourself with the "cheat sheets" and have them on hand as you analyse data.  You will have access to these "cheat sheets" in the class tests. 
+
+The second library `nycflights13` contains data on flights from New York City in 2013 that we shall begin examining in the next section.  You can get basic information on R packages using `help(package = "packagename")`, which can be applied to this library here:
+
+```{r nycflights13, exercise=TRUE, exercise.eval=FALSE, exercise.echo=TRUE}
+help(package = "nycflights13")
+```
+
+<br>
+<br>

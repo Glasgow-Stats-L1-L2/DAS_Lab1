@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Barplots | Data Analysis: Visualising data using ggplot2 in R</title>
+  <meta name="description" content="Barplots | Data Analysis: Visualising data using ggplot2 in R" />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Barplots | Data Analysis: Visualising data using ggplot2 in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Barplots | Data Analysis: Visualising data using ggplot2 in R" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="boxplots.html"/>
+<link rel="next" href="linegraphs.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="include/webex.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Getting Started</a></li>
+<li class="chapter" data-level="" data-path="viewing-the-data.html"><a href="viewing-the-data.html"><i class="fa fa-check"></i>Viewing The Data</a></li>
+<li class="chapter" data-level="" data-path="scatterplots.html"><a href="scatterplots.html"><i class="fa fa-check"></i>Scatterplots</a>
+<ul>
+<li class="chapter" data-level="" data-path="scatterplots.html"><a href="scatterplots.html#over-plotting"><i class="fa fa-check"></i>Over-plotting</a></li>
+<li class="chapter" data-level="" data-path="scatterplots.html"><a href="scatterplots.html#scatterplot-matrix"><i class="fa fa-check"></i>Scatterplot matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="histograms.html"><a href="histograms.html"><i class="fa fa-check"></i>Histograms</a></li>
+<li class="chapter" data-level="" data-path="boxplots.html"><a href="boxplots.html"><i class="fa fa-check"></i>Boxplots</a></li>
+<li class="chapter" data-level="" data-path="barplots.html"><a href="barplots.html"><i class="fa fa-check"></i>Barplots</a></li>
+<li class="chapter" data-level="" data-path="linegraphs.html"><a href="linegraphs.html"><i class="fa fa-check"></i>Linegraphs</a></li>
+<li class="chapter" data-level="" data-path="arranging-multiple-plots-on-a-page.html"><a href="arranging-multiple-plots-on-a-page.html"><i class="fa fa-check"></i>Arranging Multiple Plots On A Page</a></li>
+<li class="chapter" data-level="" data-path="further-tasks.html"><a href="further-tasks.html"><i class="fa fa-check"></i>Further Tasks</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis: Visualising data using ggplot2 in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="barplots" class="section level1 unnumbered hasAnchor">
+<h1>Barplots<a href="barplots.html#barplots" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Barplots, or barcharts, are used to visualise the distributions of categorical variables. This essentially provides us with the frequencies of categories within a categorical variable. Let's take a look at the distribution of airline carriers within the <code>flights</code> data that flew out of New York City in 2013. We can do this by creating a table containing the number of flights from each airline carrier as follows:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="barplots.html#cb39-1" aria-hidden="true" tabindex="-1"></a>carrier.freq <span class="ot">&lt;-</span> <span class="fu">table</span>(flights<span class="sc">$</span>carrier)</span>
+<span id="cb39-2"><a href="barplots.html#cb39-2" aria-hidden="true" tabindex="-1"></a>carrier.freq <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(carrier.freq)</span>
+<span id="cb39-3"><a href="barplots.html#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(carrier.freq) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;carrier&quot;</span>, <span class="st">&quot;number&quot;</span>)</span></code></pre></div>
+<p>Note, <code>ggplot</code> expects the data passed to it to be a data frame, which is why the above table is converted into a data frame. The names of the columns in our data frames have also been updated using the <code>colnames</code> function.</p>
+<p><br></p>
+<p><strong>Task</strong>: Take a look at the <code>carrier.freq</code> data set within the R console.</p>
+<div class="webex-solution">
+<button>
+Hint
+</button>
+<p><strong>Hint:</strong> You can view an object in R by simply typing its name into the R console window.</p>
+</div>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="barplots.html#cb40-1" aria-hidden="true" tabindex="-1"></a>carrier.freq</span></code></pre></div>
+<pre><code>##    carrier number
+## 1       9E  18460
+## 2       AA  32729
+## 3       AS    714
+## 4       B6  54635
+## 5       DL  48110
+## 6       EV  54173
+## 7       F9    685
+## 8       FL   3260
+## 9       HA    342
+## 10      MQ  26397
+## 11      OO     32
+## 12      UA  58665
+## 13      US  20536
+## 14      VX   5162
+## 15      WN  12275
+## 16      YV    601</code></pre>
+</div>
+<p><br></p>
+<p>To create barplots using <code>ggplot</code> we use the <code>geom_col</code> function:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="barplots.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> carrier.freq, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier, <span class="at">y =</span> number)) <span class="sc">+</span></span>
+<span id="cb42-2"><a href="barplots.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:barplots10"></span>
+<img src="main_files/figure-html/barplots10-1.png" alt="Figure 14: Carriers who flew out of New York City in 2013." width="90%" />
+<p class="caption">
+Figure 12: Figure 14: Carriers who flew out of New York City in 2013.
+</p>
+</div>
+<p><br></p>
+<p><strong>Task</strong>: Add to the code above to produce Figure 14.</p>
+<div class="webex-solution">
+<button>
+Hint
+</button>
+<p>You need to include the additional <code>labs</code> layer to <code>ggplot</code> using the <code>x</code>, <code>y</code> and <code>title</code> arguments.</p>
+</div>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="barplots.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> carrier.freq, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier, <span class="at">y =</span> number)) <span class="sc">+</span></span>
+<span id="cb43-2"><a href="barplots.html#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb43-3"><a href="barplots.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Carrier&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb43-4"><a href="barplots.html#cb43-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&quot;Carriers who flew out of New York City in 2013&quot;</span>) </span></code></pre></div>
+<p><img src="main_files/figure-html/Task7-solution-1.png" width="672" /></p>
+</div>
+<p><br></p>
+<p>Note, the names of the airlines relating to the carrier codes can be found by typing <code>airlines</code> into the R console.</p>
+<p><br></p>
+<strong>What is the name of the airline which had the most flights out of New York City in 2013?</strong>
+<div id="radio_HFQPYBSNGW" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_HFQPYBSNGW" value=""></input> <span>Virgin America</span></label><label><input type="radio" autocomplete="off" name="radio_HFQPYBSNGW" value=""></input> <span>Other</span></label><label><input type="radio" autocomplete="off" name="radio_HFQPYBSNGW" value=""></input> <span>Enovy Air</span></label><label><input type="radio" autocomplete="off" name="radio_HFQPYBSNGW" value=""></input> <span>US Airways Inc.</span></label><label><input type="radio" autocomplete="off" name="radio_HFQPYBSNGW" value=""></input> <span>Endeavor Air Inc.</span></label><label><input type="radio" autocomplete="off" name="radio_HFQPYBSNGW" value="answer"></input> <span>United Air Lines Inc.</span></label>
+</div>
+<p><br></p>
+<p>Barplots can also be used to compare two categorical variables. For instance, let's say we wanted to look at the number of flights that flew out of New York City in 2013 from each carrier and from each airport (LGA, JFK and EWR). To obtain a table of this information we simply add the flights origin to our previous table as follows:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="barplots.html#cb44-1" aria-hidden="true" tabindex="-1"></a>carrier.origin <span class="ot">&lt;-</span> <span class="fu">table</span>(flights<span class="sc">$</span>origin, flights<span class="sc">$</span>carrier)</span>
+<span id="cb44-2"><a href="barplots.html#cb44-2" aria-hidden="true" tabindex="-1"></a>carrier.origin <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(carrier.origin)</span>
+<span id="cb44-3"><a href="barplots.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(carrier.origin) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;origin&quot;</span>, <span class="st">&quot;carrier&quot;</span>, <span class="st">&quot;number&quot;</span>)</span></code></pre></div>
+<p>The barplot for comparing two categorical variables is very similar in this case, where we simply pass the additional <code>fill</code> argument to the <code>aes</code> function. Including the <code>fill</code> argument lets <code>ggplot</code> plot know that we want to split the barplot according to an additional categorical variable, which is <code>origin</code> in this case. The barplot is then given by:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="barplots.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> carrier.origin, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier, <span class="at">y =</span> number, <span class="at">fill =</span> origin)) <span class="sc">+</span></span>
+<span id="cb45-2"><a href="barplots.html#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb45-3"><a href="barplots.html#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Carrier&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb45-4"><a href="barplots.html#cb45-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&quot;Carriers who flew out of New York City in 2013&quot;</span>) </span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:barplots11"></span>
+<img src="main_files/figure-html/barplots11-1.png" alt="Figure 15: Stacked barplot of carriers who flew out of New York City in 2013." width="90%" />
+<p class="caption">
+Figure 13: Figure 15: Stacked barplot of carriers who flew out of New York City in 2013.
+</p>
+</div>
+<p>This is what is referred to as a <strong>stacked barplot</strong> since the bars for each <code>origin</code> are simply stacked on top of one another for each of the carriers. You can control the colours in the stacked bar plots with two categorial variables by adding an additional layer <code>+ scale_fill_manual(values = c(...))</code>.</p>
+<p><br></p>
+<strong>Which origin did JetBlue Airways appear to favour in 2013?</strong>
+<div id="radio_GNJPFOSYGQ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_GNJPFOSYGQ" value="answer"></input> <span>John F. Kennedy Airport (JFK)</span></label><label><input type="radio" autocomplete="off" name="radio_GNJPFOSYGQ" value=""></input> <span>LAGuardia Airport (LGA)</span></label><label><input type="radio" autocomplete="off" name="radio_GNJPFOSYGQ" value=""></input> <span>Newark Liberty International Airport (EWR)</span></label>
+</div>
+<p><br></p>
+<p>This provides us with a visually nice barplot to present our carrier information by airport of origin. However, there are also alternative barplots to the stacked barplot. One alternative to a stacked barplot is the <strong>side-by-side</strong> (or <strong>dodged</strong>) <strong>barplot</strong>, which, as suggested by its name, places the bars next to each other instead of on top of one another. This can be produced as follows:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="barplots.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> carrier.origin, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier, <span class="at">y =</span> number, <span class="at">fill =</span> origin)) <span class="sc">+</span></span>
+<span id="cb46-2"><a href="barplots.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb46-3"><a href="barplots.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Carrier&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb46-4"><a href="barplots.html#cb46-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&quot;Carriers who flew out of New York City in 2013&quot;</span>) </span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:barplots12"></span>
+<img src="main_files/figure-html/barplots12-1.png" alt="Figure 16: Dodged barplot of carriers who flew out of New York City in 2013." width="90%" />
+<p class="caption">
+Figure 14: Figure 16: Dodged barplot of carriers who flew out of New York City in 2013.
+</p>
+</div>
+<p>This is done by passing to the <code>geom_col</code> function the <code>position</code> of the barplots, which in this case is <code>dodge</code>. Before moving on, consider the following two questions:</p>
+<ul>
+<li>What could be considered a positive of using a side-by-side barplot as opposed to a stacked barplot?</li>
+<li>What could be a disadvantage of using a side-by-side barplot?</li>
+</ul>
+<p>Lastly, let's take a look at what is referred to as a <strong>faceted barplot</strong>. They provide an easier way to compare the carrier distributions by origin, and can be obtained as follows:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="barplots.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> carrier.origin, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carrier, <span class="at">y =</span> number, <span class="at">fill =</span> origin)) <span class="sc">+</span></span>
+<span id="cb47-2"><a href="barplots.html#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb47-3"><a href="barplots.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> origin, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb47-4"><a href="barplots.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Carrier&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb47-5"><a href="barplots.html#cb47-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">&quot;Carriers who flew out of New York City in 2013&quot;</span>) </span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:barplots13"></span>
+<img src="main_files/figure-html/barplots13-1.png" alt="Figure 17: Faceted barplot of carriers who flew out of New York City in 2013." width="90%" />
+<p class="caption">
+Figure 15: Figure 17: Faceted barplot of carriers who flew out of New York City in 2013.
+</p>
+</div>
+<p>Here we include the <code>facet_wrap</code> function, where we want separate barplots by <code>origin</code>, and hence we use <code>~ origin</code>. We also choose to have them plotted in one column via <code>ncol = 1</code>. This makes it easier to compare their distributions now that they are not stacked on top or beside one another.</p>
+<p>Before moving on to the next section, consider the following questions:</p>
+<ul>
+<li>What is the difference between histograms and barplots?</li>
+<li>Why can't we use histograms to visualise categorical variables?</li>
+</ul>
+<p><br>
+<br></p>
+
+</div>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  if (t = document.getElementById("webex-total_correct")) {
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+    
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+  
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+  
+  var cl = this.classList
+  
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+  
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+  
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+  
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+  }
+
+  update_total_correct();
+}
+
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="boxplots.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="linegraphs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["main.pdf", "main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

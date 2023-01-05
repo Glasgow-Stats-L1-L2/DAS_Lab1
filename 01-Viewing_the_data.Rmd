@@ -1,0 +1,59 @@
+# Viewing The Data {-}
+
+Before visualising any data set, we first need to know its contents. For example, the contents of the `flights` data within the `nycflights13` library can be observed using the following command:
+
+```{r flights, echo = TRUE, eval = FALSE}
+head(flights, n = 3)
+```
+
+This prints to the R console the first `n = 3` rows of the `flights` data set, displaying each of the variables within said data set. We now know the data set contains `r ncol(flights)` variables, as well as their names. A quick check on the size of a data set can be obtained using:
+
+```{r flights2, echo = TRUE, eval = TRUE}
+dim(flights)
+```
+
+which displays the dimensions of the data set. Thus, here we have `r nrow(flights)` rows and `r ncol(flights)` columns worth of data.
+
+To reduce the amount of data we will be working with and make things a little easier, let's only look at *Alaska Airlines* flights leaving from New York City in 2013. This can be done by subsetting the data in such a way that we only observe flights from Alaska Airlines (carrier code AS), as follows:
+
+```{r alaska, echo = TRUE, eval = TRUE}
+Alaska <- flights[flights$carrier == "AS", ]
+```
+
+This essentially picks out all of the rows within the `flights` data set for which the carrier code is `AS` and discards the rest, thus creating a new data set entitled `Alaska`.
+
+<br>
+
+**Task**: Write code to observe the first 5 rows of the `Alaska` data.
+
+`r hide("Hint")`
+You may want to use the `head` function.
+`r unhide()`
+
+```{r Task1-solution, webex.hide="Solution", echo=TRUE, eval=TRUE, warning=FALSE}
+head(Alaska, n = 5)
+```
+
+```{r MCQ1}
+opts_Q1 <- sample(c("500 19",
+                    "19 500",
+                    answer = "714 19",
+                    "19 714"))
+```
+
+<br>
+
+**What are the dimensions of the `Alaska` data set?**
+`r longmcq(opts_Q1)`
+
+`r hide("Hint")`
+Check the the dimensions using the `dim` function.
+`r unhide()`
+
+<br>
+
+Next week we will look at more sophisticated ways of manipulating data sets. Now, let us go on to look at different visualisations of our `Alaska` data set using `ggplot2`, starting with **scatterplots**.
+
+<br>
+<br>
+

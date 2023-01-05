@@ -1,0 +1,135 @@
+# Boxplots {-}
+
+Another way to look at the distribution of a variable is using a **boxplot**. A boxplot makes use of the standard *five-number summary*, that is
+
+  * the minimum value;
+  * the first quartile or 25th percentile;
+  * the median (or 2nd quartile / 50th percentile);
+  * the third quartile or 75th percentile; and
+  * the maximum value.
+  
+Keeping with the hourly temperature data, the five-number summary can be obtained in R using the following command:
+
+```{r summary, echo = TRUE, eval = TRUE, warning = FALSE}
+summary(weather$temp)
+```
+
+This provides us with the five-number summary, as well as the `mean` hourly temperature. There is one missing value in the hourly temperature data, which is represented in R by `NA`.
+
+```{r MCQ5}
+opts_Q5 <- sample(c("skewed",
+                    answer = "symmetrical"))
+```
+
+<br>
+
+**What does having similar `median` and `mean` values say about the distribution of a variable?**
+`r longmcq(opts_Q5)`
+
+<br>
+
+The boxplot of the hourly temperature data is plotted below.
+
+```{r boxplot, echo = FALSE, eval = TRUE, out.width = '90%', fig.align = "center", warning = FALSE, fig.cap = "Figure 12: Boxplot of hourly temperature recordings from NYC in 2013."}
+boxplot(weather$temp, ylab = "Hourly Temperature",
+        main = "Hourly temperatures from NYC in 2013")
+text(x= 1.35, y= summary(weather$temp)[1], labels= "Minimum")
+text(x= 1.35, y= summary(weather$temp)[2], labels= "1st quartile")
+text(x= 1.35, y= summary(weather$temp)[3], labels= "Median")
+text(x= 1.35, y= summary(weather$temp)[5], labels= "3rd quartile")
+text(x= 1.35, y= summary(weather$temp)[6], labels= "Maximum")
+```
+
+The elements of the boxplot relating to the five-number summary have also been labelled. Other features of the boxplot are:
+
+  * the *interquartile range (IQR)*, that is, the height of the box (3rd - 1st quartiles), and is a measure of the spread of the middle 50% of values. Longer boxes are indicative of greater variability.
+  * The dashed lines are known as *whiskers* and represent values less than the 25th percentile, and greater than the 75th percentile, respectively. The longer the whiskers, the more variability there is outside of the middle 50%.
+
+Boxplots are useful visualisations when comparing the distribution of a numerical variable split across groups (or a *categorical variable*). For example, we could look at how the hourly temperature changes by month, where month is our categorical, or grouping, variable.
+
+To create boxplots using `ggplot` we use the `geom_boxplot` function. If we want to look at boxplots of a variable separately for a categorical variable then we need to introduce the `factor` function. This converts a numerical variable into a categorical one, essentially creating labels or categories from the numeric values. For example, the `month` variable within the `weather` data set is a numerical variable taking on the values 1,$\ldots$,12, for each month. However, it makes more sense to convert this into a categorical variable using the `factor` function, such that:
+
+```{r boxplot5, echo = TRUE, eval = FALSE}
+weather$month
+```
+
+```{r boxplot6, echo = FALSE, eval = TRUE}
+weather$month[1:10]
+```
+
+becomes
+
+```{r boxplot7, echo = TRUE, eval = FALSE}
+factor(weather$month)
+```
+
+```{r boxplot8, echo = FALSE, eval = TRUE}
+factor(weather$month)[1:10]
+```
+
+with levels, or categories, 1,$\ldots$,12 for each month. Hence, the boxplots can be produced using `ggplot` as follows:
+
+```{r boxplot9, echo = TRUE, eval = TRUE, out.width = '90%', fig.align = "center", warning = FALSE, fig.cap = "Figure 13: Boxplots of hourly temperature recordings from NYC in 2013 by month."}
+ggplot(data = weather, mapping = aes(x = factor(month), y = temp)) +
+  geom_boxplot(fill = "steelblue") +
+  labs(x = "Month", y = "Temperature (Hourly)",
+       title = "Hourly temperatures from NYC in 2013 by month")  +
+  scale_x_discrete(labels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                              "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
+```
+
+Note, we have introduced a new function `scale_x_discrete`, which is used to rename the labels of the boxplots. This function is used as our categorical variables are discrete in nature.
+
+After splitting the hourly temperatures by month, we now see points extending beyond the whiskers of the boxplots. These are known as *outliers*, and may be thought of as unusually small or large values. However, the definition of an outlier here is somewhat arbitrary as they are defined by the length of the whiskers, which are no more than 1.5 x *IQR*.
+
+```{r MCQ6}
+opts_Q6 <- c("January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    answer = "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December")
+```
+
+<br>
+
+**Which month has the highest median hourly temperature?**
+`r longmcq(opts_Q6)`
+
+`r hide("Hint")`
+Remember that the horizontal line within the boxplot is the median value.
+`r unhide()`
+
+<br>
+
+```{r MCQ7}
+opts_Q7 <- c("January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    answer = "November",
+    "December")
+```
+
+**Which month has the largest amount of spread within the middle 50% of the hourly temperature?**
+`r longmcq(opts_Q7)`
+
+`r hide("Hint")`
+Remember that the box of the boxplot contains the middle 50% of data, and as such the larger the box, the more spread or variability within the middle 50% of values.
+`r unhide()`
+
+<br>
+<br>
+

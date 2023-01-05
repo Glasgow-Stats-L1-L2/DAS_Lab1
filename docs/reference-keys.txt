@@ -1,0 +1,16 @@
+fig:ggplot
+fig:ggplot2
+fig:ggplot3
+fig:ggplot4
+fig:ggplot5
+fig:hist6
+fig:hist7
+fig:hist9
+fig:hist10
+fig:boxplot
+fig:boxplot9
+fig:barplots10
+fig:barplots11
+fig:barplots12
+fig:barplots13
+fig:linegraph3

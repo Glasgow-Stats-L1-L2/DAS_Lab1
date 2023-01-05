@@ -1,0 +1,112 @@
+# Histograms {-}
+
+Histograms allow us to look at the *statistical distribution* of a variable. They show us how many values of a variable fall within specified *bins*. These bins give ranges of values for which the variable lies. The bins can be altered, that is, by changing their width, or by increasing the number of bins, such that we see the distribution at a higher resolution.
+
+Here, let's take a look at the `weather` data set that is within the `nycflights13` library. This data set contains hourly weather data from three airports (LGA, JFK and EWR) in New York City in 2013. We can look at its contents via:
+
+```{r weather, echo = TRUE, eval = TRUE, warning = FALSE}
+head(weather, n = 3)
+```
+
+To create a histogram using `ggplot` we use the `geom_histogram` command, or layer, instead of `geom_point` as with scatterplots. We can create a histogram of the hourly temperature data in NYC in 2013 using `ggplot` as follows:
+
+```{r hist6, echo = TRUE, eval = TRUE, out.width = '90%', fig.align = "center", warning = FALSE, fig.cap = "Figure 8: Histogram of hourly temperature recordings from NYC in 2013."}
+ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram()
+```
+
+Here, `ggplot` tells us that it used 30 bins when creating the histogram. We can adjust the bins in `ggplot` using two different approaches. Either by adjusting the
+
+  * number of bins using the `bins` argument; or
+  * the width of the bins using the `binwidth` argument.
+
+Let's first start by specifying the number of bins as follows:
+
+```{r hist7, echo = TRUE, eval = TRUE, out.width = '90%', fig.align = "center", warning = FALSE, fig.cap = "Figure 9: Histogram of hourly temperature recordings from NYC in 2013 (with 60 bins)."}
+ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(bins = 60, color = "white")
+```
+
+<br>
+
+**Task**: Play around with a different number of `bins`. What does changing the number of bins tell us about the distribution of the hourly temperature levels?
+
+`r hide("Hint")`
+Edit the `bins` argument from the previous R code. By changing the number of bins we can see the distribution of the hourly temperature levels at coarser or finer resolutions. We need to try and strike the right balance.
+`r unhide()`
+
+```{r Task4-solution, webex.hide="Solution", echo=TRUE, eval=TRUE, warning=FALSE}
+ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(bins = 40, color = "white")
+```
+
+<br>
+
+Note, we also specified the outline colour of the bins to make it easier to differentiate between them. The colour of the bins themselves can be changed by including the `fill` argument. The 657 colour options available can be found by typing the following into the R console:
+
+```{r hist8, echo = TRUE, eval = FALSE}
+colors()
+```
+
+Instead of specifying the number of bins, we can specify their width using `binwidth` as follows:
+
+```{r hist9, echo = TRUE, eval = TRUE, out.width = '90%', fig.align = "center", warning = FALSE, fig.cap = "Figure 10: Histogram of hourly temperature recordings from NYC in 2013 (using binwidth)."}
+ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(binwidth = 5, color = "white")
+```
+
+Finally, we can give the histogram a title and clean up the labels to make them more informative:
+
+```{r hist10, echo = FALSE, eval = TRUE, out.width = '90%', fig.align = "center", warning = FALSE, fig.cap = "Figure 11: Histogram of hourly temperature recordings from NYC in 2013 with updated labels."}
+ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(bins = 60, color = "white", fill = "skyblue") +
+    labs(x = "Temperature (Hourly)",
+          title = "Hourly temperatures from NYC in 2013") 
+```
+
+<br>
+
+**Task**: Modify the previous histogram code to produce a similar histogram to the labelled one above.
+
+`r hide("Hint")`
+Use the `fill` argument to specify the colour of the bins, and add labels using the `labs()` function within `ggplot`.
+`r unhide()`
+
+```{r Task5-solution, webex.hide="Solution", echo=TRUE, eval=TRUE, warning=FALSE}
+ggplot(data = weather, mapping = aes(x = temp)) +
+  geom_histogram(bins = 60, color = "white", fill = "skyblue") +
+  labs(x = "Temperature (Hourly)",
+       title = "Hourly temperatures from NYC in 2013") 
+```
+
+<br>
+
+```{r MCQ3}
+opts_Q3.1 <- sample(c(answer = "symmetrical",
+                    "left-skewed",
+                    "skewed"))
+opts_Q3.2 <- sample(c(answer = "bell-shaped",
+                      "right-skewed"))
+```
+
+<br>
+
+**How would you describe the distribution of hourly temperature?** (select ALL that apply)
+`r longmcq(opts_Q3.1)`
+`r longmcq(opts_Q3.2)`
+
+<br>
+
+```{r MCQ4}
+opts_Q4 <- c("40-50",
+             answer = "50-60",
+             "60-70",
+             "65-75")
+```
+
+**From looking at the histogram of hourly temperature levels, which interval do you think the median/mean falls within?**
+`r longmcq(opts_Q4)`
+
+<br>
+<br>
+

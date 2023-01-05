@@ -1,0 +1,42 @@
+# Linegraphs {-}
+
+Linegraphs are typically used when looking at *time series* data, that is, when we have information on how a variable changes over time. Hence, there is a natural ordering to the data when observing how something changes over time, and therefore, linegraphs should be avoided if there is no sequential ordering of a variable. Let's again look at the hourly temperature data, but this time only for Newark International Airport in January. This can be done by first subsetting the data as follows:
+
+```{r linegraph, echo = TRUE, eval = TRUE, warning = FALSE}
+Newark.Jan <- weather[weather$origin == "EWR" & weather$month == 1, ]
+```
+
+<br>
+
+**Task**: Get a feel for what is contained in the new data set for hourly temperatures at Newark International Airport in January using functions mentioned earlier.
+
+`r hide("Hint")`
+Try using the `head` and `dim` functions.
+`r unhide()`
+
+```{r Task8-solution, webex.hide="Solution", echo=TRUE, eval=TRUE, warning=FALSE}
+head(Newark.Jan)
+dim(Newark.Jan)
+```
+
+<br>
+
+To produce linegraphs using `ggplot` we use the `geom_line` function. Hence, our linegraph for the hourly temperatures at Newark International Airport in January 2013 can be created as follows:
+
+```{r linegraph3, echo = TRUE, eval = TRUE, out.width = '90%', fig.align = "center", warning = FALSE, fig.cap = "Figure 18: Hourly temperature at Newark Airport in January 2013."}
+ggplot(data = Newark.Jan, mapping = aes(x = time_hour, y = temp)) +
+  geom_line() +
+    labs(x = "Time (Hours)", y = "Temperature",
+        title = "Hourly Temperature at Newark Airport in January 2013") 
+```
+
+Before moving on to the next section, consider the following:
+
+  * In the code for the linegraph above, why has `time_hour` been plotted on the x-axis and not `hour`?
+  * Why should linegraphs be avoided when there is no sequential ordering of the data?
+  * Why are linegraphs used when time is the explanatory variable?
+  * Describe the trend in hourly temperature at Newark International Airport in January 2013.
+
+<br>
+<br>
+
