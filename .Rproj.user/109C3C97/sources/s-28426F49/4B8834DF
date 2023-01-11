@@ -3,7 +3,7 @@
     "path": "C:/Users/mtb3f/OneDrive - University of Glasgow/Stats MSc (PGT)/Interactive Labs/2023 Bookdown Versions/DA_Week1_Bookdown/DAS_Lab1/index.Rmd",
     "project_path": "index.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "3072527056",
     "contents": "",
     "dirty": false,
     "created": 1672928734983.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "11,20",
-        "scrollLine": "0"
+        "cursorPosition": "40,177",
+        "scrollLine": "23"
     },
     "folds": "",
-    "lastKnownWriteTime": 1672928795,
+    "lastKnownWriteTime": 1673433784,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1672928795886,
+    "last_content_update": 1673433784927,
     "read_only": false,
     "read_only_alternatives": []
 }
